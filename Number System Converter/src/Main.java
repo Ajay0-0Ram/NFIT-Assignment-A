@@ -12,6 +12,7 @@ public class Main{
         double input_number;
 
         //getting the users input (Input number, source base, and target base)
+        System.out.println("**NOTE any invalid inputs will be disregarded**");
         System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
 
         do{
