@@ -18,19 +18,19 @@ public class Main{
         System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
         do{
             source_base = sc.nextInt();
-        }while(source_base != 2 && source_base != 6 && source_base != 16);
+        }while(source_base != 2 && source_base != 10 && source_base != 16);
 
         //getting target base
         System.out.println("What is your target base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
         do{
             target_base = sc.nextInt();
-        }while(target_base != 2 && target_base != 6 && target_base != 16);
+        }while(target_base != 2 && target_base != 10 && target_base != 16);
 
         //getting input number
         System.out.println("What is your number: ");
         do{
             input_number = sc.nextDouble();
-        }while(!ValidateInput(input_number));
+        }while(!ValidateInput(input_number, source_base));
 
     }
 
@@ -38,7 +38,7 @@ public class Main{
     //Parameters: the users number, and the source_base
     //Return: returns true if the users number adheres to the source, and false otherwise
     public static boolean ValidateInput(double input_number, int source_base){
-        return false;
+        return true;
     }
 
     public static double convert_number(double input_number, int source_base, int target_base){
