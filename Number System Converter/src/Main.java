@@ -35,7 +35,7 @@ public class Main{
     }
 
     //Description: Validates the users number, checks if the number given adheres to the restrictions of their source_base
-    //Parameters: the users number
+    //Parameters: the users number, and the source_base
     //Return: returns true if the users number adheres to the source, and false otherwise
     public static boolean ValidateInput(Double input_number){
         return false;
