@@ -9,7 +9,7 @@ public class Main{
     public static void main (String[] args) {
         Scanner sc = new Scanner (System.in);
         int source_base, target_base;
-        double input_number;
+        String input_number;
 
         //getting the users input (Input number, source base, and target base)
         System.out.println("**Welcome to our Number System Converter**\nHere you can convert any digit (including negative and fractional) from one of our approved number systems to another!\n\n**NOTE any invalid input will be disregarded");
@@ -29,7 +29,8 @@ public class Main{
         //getting input number
         System.out.println("What is your number: ");
         do{
-            input_number = sc.nextDouble();
+            input_number = sc.next();
+
         }while(!ValidateInput(input_number, source_base));
 
     }
@@ -37,14 +38,17 @@ public class Main{
     //Description: Validates the users number, checks if the number given adheres to the restrictions of their source_base
     //Parameters: input_number and source_base
     //Return: returns true if the users number adheres to the source, and false otherwise
-    public static boolean ValidateInput(double input_number, int source_base){
+    public static boolean ValidateInput(String input_number, int source_base){
         return true;
     }
 
     //Descripton: computes the conversion of the input_number from  source_base to target_base
     //Parameters: input_number, source_base and target_base
     //Return: the input_number in the target_base
-    public static double convert_number(double input_number, int source_base, int target_base){
+    public static double convert_number(String input_number, int source_base, int target_base){
+        //code to convert from source_base to decimal
+
+        //code to convert form decimal to target_base
         return 0.0;
     }
 
@@ -52,7 +56,7 @@ public class Main{
     //Descripton: splits the input_number into its digits, and stores them in an array
     //Parameters: input_number
     //Return: an array with each digit of the input_number, the 0th entry is reserved for 1 or -1 to denote negative/positive values
-    public static int[] split(double input_number){
+    public static int[] splitInt(String input_number){
         int[] placeHolder = {0,1};
         return placeHolder;
     }
