@@ -35,13 +35,27 @@ public class Main{
     }
 
     //Description: Validates the users number, checks if the number given adheres to the restrictions of their source_base
-    //Parameters: the users number, and the source_base
+    //Parameters: input_number and source_base
     //Return: returns true if the users number adheres to the source, and false otherwise
     public static boolean ValidateInput(double input_number, int source_base){
         return true;
     }
 
+    //Descripton: computes the conversion of the input_number from  source_base to target_base
+    //Parameters: input_number, source_base and target_base
+    //Return: the input_number in the target_base
     public static double convert_number(double input_number, int source_base, int target_base){
         return 0.0;
     }
+
+    //**NOTE TO GROUP: ajay is working on this, in another program until it works
+    //Descripton: splits the input_number into its digits, and stores them in an array
+    //Parameters: input_number
+    //Return: an array with each digit of the input_number, the 0th entry is reserved for 1 or -1 to denote negative/positive values
+    public static int[] split(double input_number){
+        int[] placeHolder = {0,1};
+        return placeHolder;
+    }
 }
+
+
