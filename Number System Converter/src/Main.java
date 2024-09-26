@@ -52,13 +52,29 @@ public class Main{
         return 0.0;
     }
 
-    //**NOTE TO GROUP: ajay is working on this, in another program until it works
-    //Descripton: splits the input_number into its digits, and stores them in an ArrayList (not list as it says below)
+    //Descripton: splits the input_number into its digits, and stores them in an array of integers,
+    //the first entry is reserved for 1 or -1 to denote negative/positive values,
+    // the number 100 is used as a decimal point to separate whole and fractional parts
     //Parameters: input_number
-    //Return: an array with each digit of the input_number, the 0th entry is reserved for 1 or -1 to denote negative/positive values
-    public static int[] splitInt(String input_number){
-        int[] placeHolder = {0,1};
-        return placeHolder;
+    //Return: an array with each digit of the input_number,
+    public static ArrayList<Integer> digitSplit(String input_number){
+        String[] array_input = input_number.split("");
+        ArrayList<Integer>input_number_digits = new ArrayList<>();
+        for(int i = 0; i<array_input.length;i++){
+            switch ((array_input[i]).toUpperCase()){
+                case "-": input_number_digits.add(-1); break;
+                case "A": input_number_digits.add(10); break;
+                case "B": input_number_digits.add(11); break;
+                case "C": input_number_digits.add(12); break;
+                case "D": input_number_digits.add(13); break;
+                case "E": input_number_digits.add(14); break;
+                case "F": input_number_digits.add(15); break;
+                case ".": input_number_digits.add(100); break;
+                default: input_number_digits.add(Integer.parseInt(array_input[i]));
+            }
+
+        }
+        return input_number_digits;
     }
 }
 
