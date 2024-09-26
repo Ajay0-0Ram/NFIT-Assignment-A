@@ -53,7 +53,7 @@ public class Main{
     }
 
     //**NOTE TO GROUP: ajay is working on this, in another program until it works
-    //Descripton: splits the input_number into its digits, and stores them in an array
+    //Descripton: splits the input_number into its digits, and stores them in an ArrayList (not list as it says below)
     //Parameters: input_number
     //Return: an array with each digit of the input_number, the 0th entry is reserved for 1 or -1 to denote negative/positive values
     public static int[] splitInt(String input_number){
