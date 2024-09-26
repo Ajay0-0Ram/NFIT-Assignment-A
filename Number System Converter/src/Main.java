@@ -58,22 +58,36 @@ public class Main{
     //Parameters: input_number
     //Return: an array with each digit of the input_number,
     public static ArrayList<Integer> digitSplit(String input_number){
+        //Initialize: array for splitting the input string, and ArrayList for storing the integers
         String[] array_input = input_number.split("");
         ArrayList<Integer>input_number_digits = new ArrayList<>();
+
+        //loop through the users number, and converts each digit/char to their integer representation
         for(int i = 0; i<array_input.length;i++){
+
+            //leftmost integer reserved for positive or negative
+            if(i==0){
+                if(array_input[0].equals("-")){
+                    input_number_digits.add(-1);
+                }
+                else{input_number_digits.add(1);}
+            }
+
+            //converts the rest of the digits/hexa
             switch ((array_input[i]).toUpperCase()){
-                case "-": input_number_digits.add(-1); break;
+                case "-": break;
                 case "A": input_number_digits.add(10); break;
                 case "B": input_number_digits.add(11); break;
                 case "C": input_number_digits.add(12); break;
                 case "D": input_number_digits.add(13); break;
                 case "E": input_number_digits.add(14); break;
                 case "F": input_number_digits.add(15); break;
+                //sets up an identifiable split between whole and fractional portions
                 case ".": input_number_digits.add(100); break;
                 default: input_number_digits.add(Integer.parseInt(array_input[i]));
             }
-
         }
+        //finally return the final arrayList
         return input_number_digits;
     }
 }
