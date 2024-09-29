@@ -153,17 +153,15 @@ public class Main{
                 double currentDigit=Input_array_fraction.get(i);
                 decimal_fraction_value+=currentDigit*(Math.pow(2,power));
                 power--;    //Add 1 to power each time to move up the multiplication//
-
-            }
-
-            //applying negative value if negative sign is found
-            if(Input_array_integers.get(0)==-1){
-                decimal_int_value=decimal_int_value*-1;
             }
 
             //add up both the integer and fraction part together
             decimal_value=decimal_fraction_value+decimal_int_value;
 
+            //applying negative value if negative sign is found
+            if(Input_array_integers.get(0)==-1){
+                decimal_value=decimal_value*-1;
+            }
         }
 
         //Hexadecimal to Decimal//
@@ -187,12 +185,13 @@ public class Main{
 
             }
 
+            //add up both the integer and fraction part together
+            decimal_value=decimal_int_value+decimal_fraction_value;
+
             //applying negative value if negative sign is found
             if(Input_array_integers.get(0)==-1){
-                decimal_int_value=decimal_int_value*-1;
+                decimal_value=decimal_value*-1;
             }
-
-            decimal_value=decimal_int_value+decimal_fraction_value;
         }
 
 
@@ -200,7 +199,7 @@ public class Main{
         return decimal_value;
     }
 
-    //Descripton: splits the input_number into its digits, and stores them in an array of integers,
+    //Description: splits the input_number into its digits, and stores them in an array of integers,
     //the first entry is reserved for 1 or -1 to denote negative/positive values,
     // the number 100 is used as a decimal point to separate whole and fractional parts
     //Parameters: input_number
