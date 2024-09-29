@@ -4,6 +4,7 @@
  */
 
 import java.util.*;
+import java.lang.Math;
 
 public class Main{
     public static void main (String[] args) {
@@ -20,33 +21,72 @@ public class Main{
             source_base = sc.nextInt();
         }while(source_base != 2 && source_base != 10 && source_base != 16);
 
+
         //getting target base
         System.out.println("What is your target base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
         do{
             target_base = sc.nextInt();
         }while(target_base != 2 && target_base != 10 && target_base != 16);
 
+
         //getting input number
         System.out.println("What is your number: ");
-        do{
-            input_number = sc.next();
 
-        }while(!ValidateInput(input_number, source_base));
+        while (true) {
+            input_number = sc.next();
+            if (ValidateInput(input_number, source_base)) {
+                // After the input is validated, print confirmation
+                System.out.println("Valid input number");
+                break;  // Valid input number, exit loop
+            }
+            System.out.println("Invalid input number. Please try again.");
+        }
+
+
+
 
     }
+
 
     //Description: Validates the users number, checks if the number given adheres to the restrictions of their source_base
     //Parameters: input_number and source_base
     //Return: returns true if the users number adheres to the source, and false otherwise
     public static boolean ValidateInput(String input_number, int source_base){
+        String valid_nums="";
+
+        // Define valid characters based on the source_base given
+        if(source_base == 2){
+            valid_nums="01";
+        }
+        else if(source_base == 10){
+            valid_nums="0123456789";
+        }
+        else if(source_base == 16){
+            valid_nums="0123456789abcdefABCDEF";
+        }
+        else{
+            return false;
+        }
+
+        // Loop through each character of the input_number
+        for (int i=0; i<input_number.length(); i++){
+            char z=input_number.charAt(i);
+
+            if(valid_nums.indexOf(z)==-1){ //checking to see if the character is valid for source_base
+                return false;
+            }
+        }
         return true;
     }
+
 
     //Descripton: computes the conversion of the input_number from  source_base to target_base
     //Parameters: input_number, source_base and target_base
     //Return: the input_number in the target_base
     public static double convert_number(String input_number, int source_base, int target_base){
         //code to convert from source_base to decimal
+
+
 
         //code to convert form decimal to target_base
         return 0.0;
@@ -89,7 +129,10 @@ public class Main{
         }
         //finally return the final arrayList
         return input_number_digits;
-    }
-}
 
+
+    }
+
+
+}
 
