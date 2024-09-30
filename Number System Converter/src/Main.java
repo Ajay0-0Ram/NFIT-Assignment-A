@@ -1,5 +1,5 @@
 /*Natural Foundation of Informatics Technology
- * Group 12: Sameer Karodia, Zaid Mostafa, Ajay Ramsaran, Muhammad Saad
+ * Group 12: Sameer Karodia, Zaid Mostafa, Ajay Ramsaran, Muhammad Saad, Ebubechukwu Agwagah
  * Assignment Part A: Number Systems
  */
 
@@ -17,16 +17,36 @@ public class Main{
 
         //getting source base
         System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
-        do{
-            source_base = sc.nextInt();
-        }while(source_base != 2 && source_base != 10 && source_base != 16);
+        while (true) {
+            try {
+                source_base = sc.nextInt();
+                if (source_base == 2 || source_base == 10 || source_base == 16) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter 2, 10, or 16.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number (2, 10, or 16).");
+                sc.next(); // Clear the invalid input
+            }
+        }
 
 
         //getting target base
         System.out.println("What is your target base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
-        do{
-            target_base = sc.nextInt();
-        }while(target_base != 2 && target_base != 10 && target_base != 16);
+        while (true) {
+            try {
+                target_base = sc.nextInt();
+                if (target_base == 2 || target_base == 10 || target_base == 16) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter 2, 10, or 16.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number (2, 10, or 16).");
+                sc.next(); // Clear the invalid input
+            }
+        }
 
 
         //getting input number
