@@ -1,5 +1,5 @@
 /*Natural Foundation of Informatics Technology
- * Group 12: Sameer Karodia, Zaid Mostafa, Ajay Ramsaran, Muhammad Saad, Ebubechukwu Agwagah
+ * Group 12: Ebubechukwu Agwagah, Sameer Karodia, Zaid Mostafa, Ajay Ramsaran, Muhammad Saad
  * Assignment Part A: Number Systems
  */
 
@@ -125,6 +125,137 @@ public class Main{
         return true;
     }
 
+
+
+    //Description: computes the conversion of the input_number from decimal to target_base
+    //Parameters: input_number, source_base and target_base
+    //Return: the input_number in the target_base
+    public static double convert_number(String input_number, int source_base, int target_base){
+        double converted_number;
+        ArrayList<Integer> Input_array_integers = digitSplitInteger(digitSplit(input_number));
+        ArrayList<Integer> Input_array_fraction = digitSplitFraction(digitSplit(input_number));
+
+        //if target base is decimal automatically returns the decimal value from toDec method
+        if (target_base==10){
+            converted_number=toDec(source_base, Input_array_integers, Input_array_fraction);
+            return converted_number;
+        }
+
+        //takes decimal equivalent and converts to binary
+        if(target_base==2){
+            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
+            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
+            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
+            
+
+            //Takes the integer part and converts to binary
+
+
+            //Takes the fraction part and converts to binary
+
+
+            //Adds up both to get full binary conversion
+
+        }
+
+
+        //takes decimal equivalent and converts to hexadecimal
+        if(target_base==16){
+            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
+            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
+            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
+
+            //Takes the integer part and converts to hexadecimal
+
+
+            //Takes the fraction part and converts to hexadecimal
+
+
+            //Adds up both to get full hexadecimal conversion
+
+        }
+
+        //returning to convert form source to target_base
+        return 0.0;
+    }
+//*********************************************************************************************************************
+    //6 METHODS WORKING TOGETHER TO CONVERT THE USER INPUT INTO 2 ARRAYLISTS WHOLE AND FRAC PORTIONS, IN DECIMAL
+    //Description: splits the input_number into its digits, and stores them in an array of integers,
+    //the first entry is reserved for 1 or -1 to denote negative/positive values,
+    // the number 100 is used as a decimal point to separate whole and fractional parts
+    //Parameters: input_number
+    //Return: an array with each digit of the input_number,
+    public static ArrayList<Integer> digitSplit(String input_number){
+        //Initialize: array for splitting the input string, and ArrayList for storing the integers
+        String[] array_input = input_number.split("");
+        ArrayList<Integer>input_number_digits = new ArrayList<>();
+
+        //loop through the users number, and converts each digit/char to their integer representation
+        for(int i = 0; i<array_input.length;i++){
+
+            //leftmost integer reserved for positive or negative
+            if(i==0){
+                if(array_input[0].equals("-")){
+                    input_number_digits.add(-1);
+                }
+                else{input_number_digits.add(1);}
+            }
+
+            //converts the rest of the digits/hexa
+            switch ((array_input[i]).toUpperCase()){
+                case "-": break;
+                case "A": input_number_digits.add(10); break;
+                case "B": input_number_digits.add(11); break;
+                case "C": input_number_digits.add(12); break;
+                case "D": input_number_digits.add(13); break;
+                case "E": input_number_digits.add(14); break;
+                case "F": input_number_digits.add(15); break;
+                //sets up an identifiable split between whole and fractional portions
+                case ".": input_number_digits.add(100); break;
+                default: input_number_digits.add(Integer.parseInt(array_input[i]));
+            }
+        }
+        //finally return the final arrayList
+        return input_number_digits;
+
+
+    }
+    public static ArrayList<Integer> digitSplitInteger(ArrayList<Integer> Input_array) {
+        ArrayList<Integer> integerPart = new ArrayList<>();
+
+        // Goes through the input array and spits out everything before the decimal point (100)
+        for (int digit : Input_array) {
+
+            if (digit == 100) {
+                break;  // Stop at the decimal point
+            }
+            integerPart.add(digit);  // Add digits before the decimal point
+        }
+
+        return integerPart;
+    }
+
+    public static ArrayList<Integer> digitSplitFraction(ArrayList<Integer> Input_array) {
+        ArrayList<Integer> fractionalPart = new ArrayList<>();
+        //flag for checking if found a decimal
+        boolean foundDecimalPoint=false;
+
+        // Going through each value in the input array
+        for (int digit : Input_array) {
+            // Once it sees (100), starts adding the digits after it
+            if (digit == 100) {
+                foundDecimalPoint = true;
+                continue;  // Skip the decimal point (100) itself
+            }
+
+            if (foundDecimalPoint) {
+                fractionalPart.add(digit);  // Add all digits after the decimal point
+            }
+        }
+
+        return fractionalPart;
+    }
+
     //Converts any number they give to its decimal value
     public static double toDec(int source_base, ArrayList<Integer> Input_array_integers, ArrayList<Integer> Input_array_fraction) {
         double decimal_int_value = 0;
@@ -210,135 +341,6 @@ public class Main{
         }
 
         return decimal_value_fractions;
-    }
-
-
-    //Description: computes the conversion of the input_number from decimal to target_base
-    //Parameters: input_number, source_base and target_base
-    //Return: the input_number in the target_base
-    public static double convert_number(String input_number, int source_base, int target_base){
-        double converted_number;
-        ArrayList<Integer> Input_array_integers = digitSplitInteger(digitSplit(input_number));
-        ArrayList<Integer> Input_array_fraction = digitSplitFraction(digitSplit(input_number));
-
-        //if target base is decimal automatically returns the decimal value from toDec method
-        if (target_base==10){
-            converted_number=toDec(source_base, Input_array_integers, Input_array_fraction);
-            return converted_number;
-        }
-
-        //takes decimal equivalent and converts to binary
-        if(target_base==2){
-            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
-            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
-            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
-            
-
-            //Takes the integer part and converts to binary
-
-
-            //Takes the fraction part and converts to binary
-
-
-            //Adds up both to get full binary conversion
-
-        }
-
-
-        //takes decimal equivalent and converts to hexadecimal
-        if(target_base==16){
-            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
-            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
-            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
-
-            //Takes the integer part and converts to hexadecimal
-
-
-            //Takes the fraction part and converts to hexadecimal
-
-
-            //Adds up both to get full hexadecimal conversion
-
-        }
-
-        //returning to convert form source to target_base
-        return 0.0;
-    }
-
-    //Description: splits the input_number into its digits, and stores them in an array of integers,
-    //the first entry is reserved for 1 or -1 to denote negative/positive values,
-    // the number 100 is used as a decimal point to separate whole and fractional parts
-    //Parameters: input_number
-    //Return: an array with each digit of the input_number,
-    public static ArrayList<Integer> digitSplit(String input_number){
-        //Initialize: array for splitting the input string, and ArrayList for storing the integers
-        String[] array_input = input_number.split("");
-        ArrayList<Integer>input_number_digits = new ArrayList<>();
-
-        //loop through the users number, and converts each digit/char to their integer representation
-        for(int i = 0; i<array_input.length;i++){
-
-            //leftmost integer reserved for positive or negative
-            if(i==0){
-                if(array_input[0].equals("-")){
-                    input_number_digits.add(-1);
-                }
-                else{input_number_digits.add(1);}
-            }
-
-            //converts the rest of the digits/hexa
-            switch ((array_input[i]).toUpperCase()){
-                case "-": break;
-                case "A": input_number_digits.add(10); break;
-                case "B": input_number_digits.add(11); break;
-                case "C": input_number_digits.add(12); break;
-                case "D": input_number_digits.add(13); break;
-                case "E": input_number_digits.add(14); break;
-                case "F": input_number_digits.add(15); break;
-                //sets up an identifiable split between whole and fractional portions
-                case ".": input_number_digits.add(100); break;
-                default: input_number_digits.add(Integer.parseInt(array_input[i]));
-            }
-        }
-        //finally return the final arrayList
-        return input_number_digits;
-
-
-    }
-    public static ArrayList<Integer> digitSplitInteger(ArrayList<Integer> Input_array) {
-        ArrayList<Integer> integerPart = new ArrayList<>();
-
-        // Goes through the input array and spits out everything before the decimal point (100)
-        for (int digit : Input_array) {
-
-            if (digit == 100) {
-                break;  // Stop at the decimal point
-            }
-            integerPart.add(digit);  // Add digits before the decimal point
-        }
-
-        return integerPart;
-    }
-
-    public static ArrayList<Integer> digitSplitFraction(ArrayList<Integer> Input_array) {
-        ArrayList<Integer> fractionalPart = new ArrayList<>();
-        //flag for checking if found a decimal
-        boolean foundDecimalPoint=false;
-
-        // Going through each value in the input array
-        for (int digit : Input_array) {
-            // Once it sees (100), starts adding the digits after it
-            if (digit == 100) {
-                foundDecimalPoint = true;
-                continue;  // Skip the decimal point (100) itself
-            }
-
-            if (foundDecimalPoint) {
-                fractionalPart.add(digit);  // Add all digits after the decimal point
-            }
-        }
-
-        return fractionalPart;
     }
 
 }
