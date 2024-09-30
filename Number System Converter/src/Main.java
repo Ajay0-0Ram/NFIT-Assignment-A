@@ -67,12 +67,7 @@ public class Main{
         ArrayList<Integer>Input_array=digitSplit(input_number);
 
 
-        //INTEGER PART OF INPUT NUMBER
-        ArrayList<Integer>Input_array_integers=digitSplitInteger(Input_array);
 
-
-        //FRACTION PART OF INPUT NUMBER
-        ArrayList<Integer>Input_array_fraction=digitSplitFraction(Input_array);
 
 
         double test=convert_number(input_number,source_base,target_base);
@@ -164,6 +159,60 @@ public class Main{
         return decimal_value;
     }
 
+    // Method to extract integer part digits from decimal_value (with negative sign)
+    public static ArrayList<Integer> getDecIntegers(double decimal_value) {
+        ArrayList<Integer> decimal_value_integers = new ArrayList<>();
+
+        // Convert the double value to a string
+        String decimalString = Double.toString(decimal_value);
+
+        // Split the string into integer and fractional parts using the decimal point
+        String[] parts = decimalString.split("\\.");
+
+        // Get the integer part, including the negative sign if present
+        String integerPart = parts[0];
+
+        // Extract digits from the integer part (including the negative sign)
+        for (char digitChar : integerPart.toCharArray()) {
+            if (digitChar == '-') {
+                decimal_value_integers.add(-1);  // Add -1 for the negative sign
+            } else {
+                int digit = Character.getNumericValue(digitChar);
+                decimal_value_integers.add(digit);  // Add each digit to the list
+            }
+        }
+
+        return decimal_value_integers;
+    }
+
+    // Method to extract fractional part digits from decimal_value (with precision)
+    public static ArrayList<Integer> getDecFractions(double decimal_value) {
+        ArrayList<Integer> decimal_value_fractions = new ArrayList<>();
+
+        // Convert the double value to a string
+        String decimalString = Double.toString(decimal_value);
+
+        // Split the string into integer and fractional parts using the decimal point
+        String[] parts = decimalString.split("\\.");
+
+        // If there's no fractional part, return an empty list
+        if (parts.length == 1) {
+            return decimal_value_fractions;  // No fractional part
+        }
+
+        // Get the fractional part (everything after the decimal point)
+        String fractionalPart = parts[1];
+
+        // Extract digits from the fractional part
+        for (char digitChar : fractionalPart.toCharArray()) {
+            int digit = Character.getNumericValue(digitChar);
+            decimal_value_fractions.add(digit);  // Add each digit to the list
+        }
+
+        return decimal_value_fractions;
+    }
+
+
     //Description: computes the conversion of the input_number from decimal to target_base
     //Parameters: input_number, source_base and target_base
     //Return: the input_number in the target_base
@@ -174,18 +223,41 @@ public class Main{
 
         //if target base is decimal automatically returns the decimal value from toDec method
         if (target_base==10){
-             converted_number=toDec(source_base, Input_array_integers, Input_array_fraction);
-             return converted_number;
-         }
+            converted_number=toDec(source_base, Input_array_integers, Input_array_fraction);
+            return converted_number;
+        }
 
         //takes decimal equivalent and converts to binary
         if(target_base==2){
+            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
+            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
+            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
+            
+
+            //Takes the integer part and converts to binary
+
+
+            //Takes the fraction part and converts to binary
+
+
+            //Adds up both to get full binary conversion
 
         }
 
 
         //takes decimal equivalent and converts to hexadecimal
         if(target_base==16){
+            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
+            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
+            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
+
+            //Takes the integer part and converts to hexadecimal
+
+
+            //Takes the fraction part and converts to hexadecimal
+
+
+            //Adds up both to get full hexadecimal conversion
 
         }
 
@@ -193,7 +265,7 @@ public class Main{
         return 0.0;
     }
 
-    //Descripton: splits the input_number into its digits, and stores them in an array of integers,
+    //Description: splits the input_number into its digits, and stores them in an array of integers,
     //the first entry is reserved for 1 or -1 to denote negative/positive values,
     // the number 100 is used as a decimal point to separate whole and fractional parts
     //Parameters: input_number
@@ -270,4 +342,3 @@ public class Main{
     }
 
 }
-
