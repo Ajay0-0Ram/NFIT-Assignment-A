@@ -1,0 +1,140 @@
+import java.util.*;
+import java.lang.Math;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int source_base = 0, target_base = 0;
+        String input_number;
+
+        // Welcome message
+        System.out.println("**Welcome to our Number System Converter**\nHere you can convert any digit (including negative and fractional) from one of our approved number systems to another!\n\n**NOTE any invalid input will be disregarded");
+
+        // Getting source base with error handling
+        System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
+        while (true) {
+            try {
+                source_base = sc.nextInt();
+                if (source_base == 2 || source_base == 10 || source_base == 16) {
+                    break; // Valid base, exit loop
+                } else {
+                    System.out.println("Invalid base. Please enter 2, 10, or 16: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number (2, 10, or 16): ");
+                sc.next(); // Clear the invalid input
+            }
+        }
+
+        // Getting target base with error handling
+        System.out.println("What is your target base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
+        while (true) {
+            try {
+                target_base = sc.nextInt();
+                if (target_base == 2 || target_base == 10 || target_base == 16) {
+                    break; // Valid base, exit loop
+                } else {
+                    System.out.println("Invalid base. Please enter 2, 10, or 16: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number (2, 10, or 16): ");
+                sc.next(); // Clear the invalid input
+            }
+        }
+
+        // Getting input number
+        System.out.println("What is your number: ");
+        while (true) {
+            input_number = sc.next();
+            if (ValidateInput(input_number, source_base)) {
+                System.out.println("Valid input number");
+                break;  // Valid input number, exit loop
+            }
+            System.out.println("Invalid input number. Please try again.");
+        }
+
+    }
+
+    // Validates the input number based on the source base
+    public static boolean ValidateInput(String input_number, int source_base) {
+        String valid_nums = "";
+
+        if (source_base == 2) {
+            valid_nums = "01";
+        } else if (source_base == 10) {
+            valid_nums = "0123456789";
+        } else if (source_base == 16) {
+            valid_nums = "0123456789abcdefABCDEF";
+        } else {
+            return false;
+        }
+
+        for (int i = 0; i < input_number.length(); i++) {
+            char z = input_number.charAt(i);
+            if (valid_nums.indexOf(z) == -1) { // Check if the character is valid for source_base
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Descripton: computes the conversion of the input_number from  source_base to target_base
+    //Parameters: input_number, source_base and target_base
+    //Return: the input_number in the target_base
+    public static double convert_number(String input_number, int source_base, int target_base) {
+        return 0.0;
+    }
+
+    //Descripton: splits the input_number into its digits, and stores them in an array of integers,
+    //the first entry is reserved for 1 or -1 to denote negative/positive values,
+    // the number 100 is used as a decimal point to separate whole and fractional parts
+    //Parameters: input_number
+    //Return: an array with each digit of the input_number,
+    public static ArrayList<Integer> digitSplit(String input_number) {
+        String[] array_input = input_number.split("");
+        ArrayList<Integer> input_number_digits = new ArrayList<>();
+
+        for (int i = 0; i < array_input.length; i++) {
+            if (i == 0) {
+                if (array_input[0].equals("-")) {
+                    input_number_digits.add(-1);
+                } else {
+                    input_number_digits.add(1);
+                }
+            }
+
+            switch ((array_input[i]).toUpperCase()) {
+                case "-":
+                    break;
+                case "A":
+                    input_number_digits.add(10);
+                    break;
+                case "B":
+                    input_number_digits.add(11);
+                    break;
+                case "C":
+                    input_number_digits.add(12);
+                    break;
+                case "D":
+                    input_number_digits.add(13);
+                    break;
+                case "E":
+                    input_number_digits.add(14);
+                    break;
+                case "F":
+                    input_number_digits.add(15);
+                    break;
+                //sets up an identifiable split between whole and fractional portions
+                case ".":
+                    input_number_digits.add(100);
+                    break;
+                default:
+                    input_number_digits.add(Integer.parseInt(array_input[i]));
+            }
+        }
+        //finally return the final arrayList
+
+        return input_number_digits;
+    }
+
+}
