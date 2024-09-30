@@ -18,7 +18,7 @@ public class Main{
         //getting source base
         System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
         do{
-            source_base = sc.nextInt();
+            source_base = sc.nextInt(); 
         }while(source_base != 2 && source_base != 10 && source_base != 16);
 
 
