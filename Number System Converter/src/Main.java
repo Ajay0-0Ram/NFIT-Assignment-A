@@ -144,8 +144,11 @@ public class Main{
         //takes decimal equivalent and converts to binary
         if(target_base==2){
             //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
+            double decimal_value = toDec(source_base, Input_array_integers, Input_array_fraction);
             ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
             ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
+            String tester = (toBinOrHex(target_base, decimal_value));
+            System.out.println(tester);
             
 
             //Takes the integer part and converts to binary
@@ -162,9 +165,11 @@ public class Main{
         //takes decimal equivalent and converts to hexadecimal
         if(target_base==16){
             //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
+            double decimal_value = toDec(source_base, Input_array_integers, Input_array_fraction);
             ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
             ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
-
+            String tester = (toBinOrHex(target_base, decimal_value));
+            System.out.println(tester);
             //Takes the integer part and converts to hexadecimal
 
 
@@ -178,8 +183,88 @@ public class Main{
         //returning to convert form source to target_base
         return 0.0;
     }
+
+    //Converts the guaranteed decimal value to either binary or hex
+    public static String toBinOrHex(int target_base, double decimal_value) {
+        double quotient = (int) decimal_value;
+        int remainder;
+        String BinOrHex = "";
+        // Converting whole portion
+        while (quotient > 0) {
+            remainder = ((int) quotient) % target_base;
+            // Converts the hexadecimal digits if necessary
+            switch (remainder) {
+                case 10:
+                    BinOrHex = "A" + BinOrHex;
+                    break;
+                case 11:
+                    BinOrHex = "B" + BinOrHex;
+                    break;
+                case 12:
+                    BinOrHex = "C" + BinOrHex;
+                    break;
+                case 13:
+                    BinOrHex = "D" + BinOrHex;
+                    break;
+                case 14:
+                    BinOrHex = "E" + BinOrHex;
+                    break;
+                case 15:
+                    BinOrHex = "F" + BinOrHex;
+                    break;
+                default:
+                    BinOrHex = remainder + BinOrHex;
+                    break;
+            }
+            quotient = Math.floor(quotient / target_base);
+        }
+
+        // Converting the fractional part
+        quotient = decimal_value - (int) decimal_value;
+        if (quotient > 0) {
+            BinOrHex += ".";
+            int count = 0;  // To limit the number of digits for non-terminating fractions
+
+            while (quotient != 0 ) { // Limit to 10 digits to avoid infinite loops
+                quotient *= target_base;
+                remainder = (int) quotient;
+
+                // Converts the hexadecimal digits if necessary
+                switch (remainder) {
+                    case 10:
+                        BinOrHex += "A";
+                        break;
+                    case 11:
+                        BinOrHex += "B";
+                        break;
+                    case 12:
+                        BinOrHex += "C";
+                        break;
+                    case 13:
+                        BinOrHex += "D";
+                        break;
+                    case 14:
+                        BinOrHex += "E";
+                        break;
+                    case 15:
+                        BinOrHex += "F";
+                        break;
+                    default:
+                        BinOrHex += remainder;
+                        break;
+                }
+
+                quotient -= remainder;  // Update the fractional part
+                count++;  // Increment count to prevent infinite loop for non-terminating fractions
+            }
+        }
+
+        return BinOrHex;
+    }
+
 //*********************************************************************************************************************
     //6 METHODS WORKING TOGETHER TO CONVERT THE USER INPUT INTO 2 ARRAYLISTS WHOLE AND FRAC PORTIONS, IN DECIMAL
+
     //Description: splits the input_number into its digits, and stores them in an array of integers,
     //the first entry is reserved for 1 or -1 to denote negative/positive values,
     // the number 100 is used as a decimal point to separate whole and fractional parts
