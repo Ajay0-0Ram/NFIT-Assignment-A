@@ -18,7 +18,7 @@ public class Main{
         //getting source base
         System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
         do{
-            source_base = sc.nextInt(); 
+            source_base = sc.nextInt();
         }while(source_base != 2 && source_base != 10 && source_base != 16);
 
 
@@ -55,7 +55,7 @@ public class Main{
         ArrayList<Integer>Input_array_fraction=digitSplitFraction(Input_array);
 
 
-        double test=convert_number(input_number,source_base,target_base,Input_array_integers,Input_array_fraction);
+        double test=convert_number(input_number,source_base,target_base);
         System.out.print("\nConverted number is: "+test);
 
     }
