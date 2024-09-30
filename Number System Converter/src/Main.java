@@ -161,7 +161,7 @@ public class Main{
         return "0";
     }
 
-    //Converts the guaranteed decimal value to either binary or hex
+    //Converts the guaranteed decimal value to either binary or hex, since it's the same process with a different divisor/multiplicant
     public static String toBinOrHex(int target_base, double decimal_value) {
         double quotient = (int) decimal_value;
         int remainder;
@@ -231,8 +231,8 @@ public class Main{
                         break;
                 }
 
-                quotient -= remainder;  // Update the fractional part
-                count++;  // Increment count to prevent infinite loop for non-terminating fractions
+                quotient -= remainder;
+                count++; 
             }
         }
 
