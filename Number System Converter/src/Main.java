@@ -149,7 +149,7 @@ public class Main{
             converted_number = Double.parseDouble(binary_as_String);
             return (String.valueOf(converted_number));
         }
-
+ 
 
         //takes decimal equivalent and converts to hexadecimal
         if(target_base==16){
