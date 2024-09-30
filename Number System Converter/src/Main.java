@@ -45,33 +45,18 @@ public class Main{
 
         //GETTING AN ARRAY OF THE INPUT NUMBER PROVIDED
         ArrayList<Integer>Input_array=digitSplit(input_number);
-        //TESTING ARRAY
-        System.out.println("Full array is: ");
-        for (int i=0;i<Input_array.size();i++){
-            System.out.print(Input_array.get(i)+" ");
 
-        }
 
         //INTEGER PART OF INPUT NUMBER
         ArrayList<Integer>Input_array_integers=digitSplitInteger(Input_array);
-        //TESTING ARRAY
-        System.out.print("\nIntegers of array are: ");
-        for (int i=0;i<Input_array_integers.size();i++){
-            System.out.print(Input_array_integers.get(i)+" ");
 
-        }
 
         //FRACTION PART OF INPUT NUMBER
         ArrayList<Integer>Input_array_fraction=digitSplitFraction(Input_array);
-        //TESTING ARRAY
-        System.out.print("\nFraction of array is: ");
-        for (int i=0;i<Input_array_fraction.size();i++){
-            System.out.print(Input_array_fraction.get(i)+" ");
 
-        }
 
         double test=convert_number(input_number,source_base,target_base,Input_array_integers,Input_array_fraction);
-        System.out.print("\nDecimal value is: "+test);
+        System.out.print("\nConverted number is: "+test);
 
     }
 
@@ -125,81 +110,68 @@ public class Main{
         return true;
     }
 
-
-    //Descripton: computes the conversion of the input_number from  source_base to target_base
-    //Parameters: input_number, source_base and target_base
-    //Return: the input_number in the target_base
-    public static double convert_number(String input_number, int source_base, int target_base,ArrayList<Integer> Input_array_integers,ArrayList<Integer> Input_array_fraction){
+    //Converts any number they give to its decimal value
+    public static double toDec(int source_base, ArrayList<Integer> Input_array_integers, ArrayList<Integer> Input_array_fraction) {
         double decimal_int_value = 0;
-        double decimal_fraction_value=0;
-        double decimal_value=0;
+        double decimal_fraction_value = 0;
+        double decimal_value = 0;
 
-        //code to convert from source_base to decimal//
-        //Binary to Decimal//
-        if (source_base==2){
-            int power=0;
+        int power = 0;
 
-            //converting integer part
-            for(int i=Input_array_integers.size()-1; i>0; i--){   //Starting from last digit in the integer part and stopping before the first number due to it representing negative or not//
-                double currentDigit=Input_array_integers.get(i);
-                decimal_int_value+=currentDigit*(Math.pow(2,power));
-                power++;    //Add 1 to power each time to move up the multiplication//
-            }
-
-            //converting fraction part
-            //change power to negative for fractions
-            power=-1;
-            for (int i=0;i<Input_array_fraction.size();i++){  //Starting from first digit in fraction part and multiplying by negative power
-                double currentDigit=Input_array_fraction.get(i);
-                decimal_fraction_value+=currentDigit*(Math.pow(2,power));
-                power--;    //Add 1 to power each time to move up the multiplication//
-            }
-
-            //add up both the integer and fraction part together
-            decimal_value=decimal_fraction_value+decimal_int_value;
-
-            //applying negative value if negative sign is found
-            if(Input_array_integers.get(0)==-1){
-                decimal_value=decimal_value*-1;
-            }
+        // Converting the integer part
+        for (int i = Input_array_integers.size() - 1; i > 0; i--) {  // Skip the first element for negative sign
+            double currentDigit = Input_array_integers.get(i);
+            decimal_int_value += currentDigit * Math.pow(source_base, power);
+            power++;
         }
 
-        //Hexadecimal to Decimal//
-        if (source_base==16){
-            int power=0;
-
-            //converting integer part
-            for(int i=Input_array_integers.size()-1; i>0; i--){   //Starting from last digit in the input number and stopping before the first number due to it representing negative or not//
-                double currentDigit=Input_array_integers.get(i);
-                decimal_int_value+=currentDigit*(Math.pow(16,power));
-                power++;    //Add 1 to power each time to move up the multiplication//
-            }
-
-            //converting fraction part
-            //change power to negative for fractions
-            power=-1;
-            for (int i=0;i<Input_array_fraction.size();i++){  //Starting from first digit in fraction part and multiplying by negative power
-                double currentDigit=Input_array_fraction.get(i);
-                decimal_fraction_value+=currentDigit*(Math.pow(16,power));
-                power--;    //Add 1 to power each time to move up the multiplication//
-
-            }
-
-            //add up both the integer and fraction part together
-            decimal_value=decimal_int_value+decimal_fraction_value;
-
-            //applying negative value if negative sign is found
-            if(Input_array_integers.get(0)==-1){
-                decimal_value=decimal_value*-1;
-            }
+        // Converting the fractional part
+        power = -1;
+        for (int i = 0; i < Input_array_fraction.size(); i++) {
+            double currentDigit = Input_array_fraction.get(i);
+            decimal_fraction_value += currentDigit * Math.pow(source_base, power);
+            power--;
         }
 
+        // Adding up both the integer and fractional parts
+        decimal_value = decimal_int_value + decimal_fraction_value;
 
-        //returning to convert form source to target_base
+        // Applying negative sign if the first element of Input_array_integers is -1
+        if (Input_array_integers.get(0) == -1) {
+            decimal_value = -decimal_value;
+        }
+
         return decimal_value;
     }
 
-    //Description: splits the input_number into its digits, and stores them in an array of integers,
+    //Description: computes the conversion of the input_number from decimal to target_base
+    //Parameters: input_number, source_base and target_base
+    //Return: the input_number in the target_base
+    public static double convert_number(String input_number, int source_base, int target_base,ArrayList<Integer> Input_array_integers,ArrayList<Integer> Input_array_fraction){
+        double converted_number;
+
+        //if target base is decimal automatically returns the decimal value from toDec method
+        if (target_base==10){
+             converted_number=toDec(source_base, Input_array_integers, Input_array_fraction);
+             return converted_number;
+         }
+
+        //takes decimal equivalent and converts to binary
+        if(target_base==2){
+
+        }
+
+
+        //takes decimal equivalent and converts to hexadecimal
+        if(target_base==16){
+
+        }
+
+        //returning to convert form source to target_base
+        return 0.0;
+    }
+
+    //Descripton: splits the input_number into its digits, and stores them in an array of integers,
     //the first entry is reserved for 1 or -1 to denote negative/positive values,
     // the number 100 is used as a decimal point to separate whole and fractional parts
     //Parameters: input_number
