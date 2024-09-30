@@ -70,8 +70,9 @@ public class Main{
 
 
 
-        double test=convert_number(input_number,source_base,target_base);
-        System.out.print("\nConverted number is: "+test);
+        String converter = convert_number(input_number,source_base,target_base);
+        System.out.print("\nConverted number is: " + converter);
+
 
     }
 
@@ -130,7 +131,7 @@ public class Main{
     //Description: computes the conversion of the input_number from decimal to target_base
     //Parameters: input_number, source_base and target_base
     //Return: the input_number in the target_base
-    public static double convert_number(String input_number, int source_base, int target_base){
+    public static String convert_number(String input_number, int source_base, int target_base){
         double converted_number;
         ArrayList<Integer> Input_array_integers = digitSplitInteger(digitSplit(input_number));
         ArrayList<Integer> Input_array_fraction = digitSplitFraction(digitSplit(input_number));
@@ -138,50 +139,26 @@ public class Main{
         //if target base is decimal automatically returns the decimal value from toDec method
         if (target_base==10){
             converted_number=toDec(source_base, Input_array_integers, Input_array_fraction);
-            return converted_number;
+            return (String.valueOf(converted_number));
         }
 
         //takes decimal equivalent and converts to binary
         if(target_base==2){
-            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
             double decimal_value = toDec(source_base, Input_array_integers, Input_array_fraction);
-            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
-            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
-            String tester = (toBinOrHex(target_base, decimal_value));
-            System.out.println(tester);
-            
-
-            //Takes the integer part and converts to binary
-
-
-            //Takes the fraction part and converts to binary
-
-
-            //Adds up both to get full binary conversion
-
+            String binary_as_String = (toBinOrHex(target_base, decimal_value));
+            converted_number = Integer.parseInt(binary_as_String);
+            return (String.valueOf(converted_number));
         }
 
 
         //takes decimal equivalent and converts to hexadecimal
         if(target_base==16){
-            //Takes the decimal value and splits it into two Arrays (Integer and Fraction part) for easier conversion
             double decimal_value = toDec(source_base, Input_array_integers, Input_array_fraction);
-            ArrayList<Integer> Integer_of_decimal = getDecIntegers(toDec(source_base, Input_array_integers, Input_array_fraction));
-            ArrayList<Integer> Fraction_of_decimal = getDecFractions(toDec(source_base, Input_array_integers, Input_array_fraction));
-            String tester = (toBinOrHex(target_base, decimal_value));
-            System.out.println(tester);
-            //Takes the integer part and converts to hexadecimal
-
-
-            //Takes the fraction part and converts to hexadecimal
-
-
-            //Adds up both to get full hexadecimal conversion
-
+            String hexa_as_String = (toBinOrHex(target_base, decimal_value));
+            return (String.valueOf(hexa_as_String));
         }
 
-        //returning to convert form source to target_base
-        return 0.0;
+        return "0";
     }
 
     //Converts the guaranteed decimal value to either binary or hex
