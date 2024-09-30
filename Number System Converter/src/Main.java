@@ -9,71 +9,75 @@ import java.lang.Math;
 public class Main{
     public static void main (String[] args) {
         Scanner sc = new Scanner (System.in);
-        int source_base, target_base;
-        String input_number;
+        String continueChoice;
+        do{
+            
+            int source_base, target_base;
+            String input_number;
 
-        //getting the users input (Input number, source base, and target base)
-        System.out.println("**Welcome to our Number System Converter**\nHere you can convert any digit (including negative and fractional) from one of our approved number systems to another!\n\n**NOTE any invalid input will be disregarded");
+            //getting the users input (Input number, source base, and target base)
+            System.out.println("**Welcome to our Number System Converter**\nHere you can convert any digit (including negative and fractional) from one of our approved number systems to another!\n\n**NOTE any invalid input will be disregarded");
 
-        //getting source base
-        System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
-        while (true) {
-            try {
-                source_base = sc.nextInt();
-                if (source_base == 2 || source_base == 10 || source_base == 16) {
-                    break;
-                } else {
-                    System.out.println("Invalid input. Please enter 2, 10, or 16.");
+            //getting source base
+            System.out.println("What is your source base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
+            while (true) {
+                try {
+                    source_base = sc.nextInt();
+                    if (source_base == 2 || source_base == 10 || source_base == 16) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input. Please enter 2, 10, or 16.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number (2, 10, or 16).");
+                    sc.next(); // Clear the invalid input
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number (2, 10, or 16).");
-                sc.next(); // Clear the invalid input
             }
-        }
 
 
-        //getting target base
-        System.out.println("What is your target base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
-        while (true) {
-            try {
-                target_base = sc.nextInt();
-                if (target_base == 2 || target_base == 10 || target_base == 16) {
-                    break;
-                } else {
-                    System.out.println("Invalid input. Please enter 2, 10, or 16.");
+            //getting target base
+            System.out.println("What is your target base (2: Binary, 10: Decimal, 16: Hexadecimal): ");
+            while (true) {
+                try {
+                    target_base = sc.nextInt();
+                    if (target_base == 2 || target_base == 10 || target_base == 16) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input. Please enter 2, 10, or 16.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number (2, 10, or 16).");
+                    sc.next(); // Clear the invalid input
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number (2, 10, or 16).");
-                sc.next(); // Clear the invalid input
             }
-        }
 
 
-        //getting input number
-        System.out.println("What is your number: ");
+            //getting input number
+            System.out.println("What is your number: ");
 
-        while (true) {
-            input_number = sc.next();
-            if (ValidateInput(input_number, source_base)) {
-                // After the input is validated, print confirmation
-                System.out.println("valid input number");
-                break;  // Valid input number, exit loop
+            while (true) {
+                input_number = sc.next();
+                if (ValidateInput(input_number, source_base)) {
+                    // After the input is validated, print confirmation
+                    System.out.println("valid input number");
+                    break;  // Valid input number, exit loop
+                }
+                System.out.println("Invalid input number. Please try again.");
             }
-            System.out.println("Invalid input number. Please try again.");
-        }
+            // Conversion process
+            String converter = convert_number(input_number, source_base, target_base);
+            System.out.println("\nConverted number is: " + converter);
 
+            // *** User choice to continue or quit ***
+            System.out.println("\nDo you wish to continue with other numbers?");
+            System.out.println("Enter (Y) to continue");
+            System.out.println("Enter (N) to quit");
 
-        //GETTING AN ARRAY OF THE INPUT NUMBER PROVIDED
-        ArrayList<Integer>Input_array=digitSplit(input_number);
+            continueChoice = sc.next();
+        } while (continueChoice.equalsIgnoreCase("Y")); // Loop continues if user inputs 'Y'
 
-
-
-
-
-        String converter = convert_number(input_number,source_base,target_base);
-        System.out.print("\nConverted number is: " + converter);
-
-
+        // Exit message
+        System.out.println("Quitting calculator... Thank you!");
     }
 
 
