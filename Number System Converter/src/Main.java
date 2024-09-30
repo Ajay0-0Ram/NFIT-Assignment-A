@@ -147,8 +147,10 @@ public class Main{
     //Description: computes the conversion of the input_number from decimal to target_base
     //Parameters: input_number, source_base and target_base
     //Return: the input_number in the target_base
-    public static double convert_number(String input_number, int source_base, int target_base,ArrayList<Integer> Input_array_integers,ArrayList<Integer> Input_array_fraction){
+    public static double convert_number(String input_number, int source_base, int target_base){
         double converted_number;
+        ArrayList<Integer> Input_array_integers = digitSplitInteger(digitSplit(input_number));
+        ArrayList<Integer> Input_array_fraction = digitSplitFraction(digitSplit(input_number));
 
         //if target base is decimal automatically returns the decimal value from toDec method
         if (target_base==10){
