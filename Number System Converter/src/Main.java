@@ -146,7 +146,7 @@ public class Main{
         if(target_base==2){
             double decimal_value = toDec(source_base, Input_array_integers, Input_array_fraction);
             String binary_as_String = (toBinOrHex(target_base, decimal_value));
-            converted_number = Integer.parseInt(binary_as_String);
+            converted_number = Double.parseDouble(binary_as_String);
             return (String.valueOf(converted_number));
         }
 
