@@ -11,7 +11,7 @@ public class Main{
         Scanner sc = new Scanner (System.in);
         String continueChoice;
         do{
-            
+
             int source_base, target_base;
             String input_number;
 
@@ -153,7 +153,7 @@ public class Main{
             converted_number = Double.parseDouble(binary_as_String);
             return (String.valueOf(converted_number));
         }
- 
+
 
         //takes decimal equivalent and converts to hexadecimal
         if(target_base==16){
@@ -236,7 +236,7 @@ public class Main{
                 }
 
                 quotient -= remainder;
-                count++; 
+                count++;
             }
         }
 
@@ -356,57 +356,96 @@ public class Main{
         return decimal_value;
     }
 
-    // Method to extract integer part digits from decimal_value (with negative sign)
-    public static ArrayList<Integer> getDecIntegers(double decimal_value) {
-        ArrayList<Integer> decimal_value_integers = new ArrayList<>();
+    //This is the method we will use to convert the binary string into Two's Complement.
+    public static String getTwosComplement(String binary) {
 
-        // Convert the double value to a string
-        String decimalString = Double.toString(decimal_value);
+        //This section will invert the bits (turn 1 into 0 and vice versa, essentially finding the One's Complement) in the binary string.
+        StringBuilder onesComplement = new StringBuilder();
 
-        // Split the string into integer and fractional parts using the decimal point
-        String[] parts = decimalString.split("\\.");
-
-        // Get the integer part, including the negative sign if present
-        String integerPart = parts[0];
-
-        // Extract digits from the integer part (including the negative sign)
-        for (char digitChar : integerPart.toCharArray()) {
-            if (digitChar == '-') {
-                decimal_value_integers.add(-1);  // Add -1 for the negative sign
+        //This for loop goes through each bit in the binary sequence.
+        for (int i = 0; i < binary.length(); i++) {
+            //Each bit in the binary sequence is then inverted.
+            if (binary.charAt(i) == '0') {
+                onesComplement.append('1');
             } else {
-                int digit = Character.getNumericValue(digitChar);
-                decimal_value_integers.add(digit);  // Add each digit to the list
+                onesComplement.append('0');
             }
         }
 
-        return decimal_value_integers;
+
+        return addOne(onesComplement.toString());
     }
 
-    // Method to extract fractional part digits from decimal_value (with precision)
-    public static ArrayList<Integer> getDecFractions(double decimal_value) {
-        ArrayList<Integer> decimal_value_fractions = new ArrayList<>();
+    //This is the method to add 1 to the LSB.
+    public static String addOne(String binary) {
+        //We will convert the binary string to a char array for easier manipulation.
+        char[] binaryArray = binary.toCharArray();
 
-        // Convert the double value to a string
-        String decimalString = Double.toString(decimal_value);
+        // Start adding 1 from the rightmost bit (the least significant bit).
+        for (int i = binaryArray.length - 1; i >= 0; i--) {
+            //If the current bit is '0', change it to '1' and stop (no carry required).
+            if (binaryArray[i] == '0') {
+                binaryArray[i] = '1';
+                break;
+            }
 
-        // Split the string into integer and fractional parts using the decimal point
-        String[] parts = decimalString.split("\\.");
-
-        // If there's no fractional part, return an empty list
-        if (parts.length == 1) {
-            return decimal_value_fractions;  // No fractional part
+            //If the current bit is '1', change it to '0' (carry the 1 to the next bit).
+            else {
+                binaryArray[i] = '0';
+            }
         }
 
-        // Get the fractional part (everything after the decimal point)
-        String fractionalPart = parts[1];
+        // If all bits are 1 after the inversion, we have a carry overflow, so we add an extra '1' at the start of the string.
+        if (binaryArray[0] == '0') {
+            return new String(binaryArray);
+        }
+        else {
+            return "1" + new String(binaryArray);
+        }
+    }
 
-        // Extract digits from the fractional part
-        for (char digitChar : fractionalPart.toCharArray()) {
-            int digit = Character.getNumericValue(digitChar);
-            decimal_value_fractions.add(digit);  // Add each digit to the list
+    // Method to MANUALLY convert a binary string to hexadecimal
+    public static String binaryToHex(String binary) {
+        // Step 1: Pad the binary string to a length that is a multiple of 4
+        int length = binary.length();
+        int padding = 4 - (length % 4);
+        if (padding != 4) {
+            for (int i = 0; i < padding; i++) {
+                binary = "0" + binary;
+            }
         }
 
-        return decimal_value_fractions;
+        // Step 2: Create a mapping of 4-bit binary to hexadecimal
+        StringBuilder hex = new StringBuilder();
+        for (int i = 0; i < binary.length(); i += 4) {
+            String fourBits = binary.substring(i, i + 4);
+            hex.append(binaryToHexDigit(fourBits));
+        }
+
+        return hex.toString();
+    }
+
+    // Method to convert 4-bit binary string to a single hexadecimal digit
+    public static char binaryToHexDigit(String fourBits) {
+        switch (fourBits) {
+            case "0000": return '0';
+            case "0001": return '1';
+            case "0010": return '2';
+            case "0011": return '3';
+            case "0100": return '4';
+            case "0101": return '5';
+            case "0110": return '6';
+            case "0111": return '7';
+            case "1000": return '8';
+            case "1001": return '9';
+            case "1010": return 'A';
+            case "1011": return 'B';
+            case "1100": return 'C';
+            case "1101": return 'D';
+            case "1110": return 'E';
+            case "1111": return 'F';
+            default: throw new IllegalArgumentException("Invalid 4-bit binary sequence: " + fourBits);
+        }
     }
 
 }
